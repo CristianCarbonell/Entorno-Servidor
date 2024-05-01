@@ -1,0 +1,56 @@
+{% block content %}
+    <style>
+        .event-container {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0px 15%;
+        }
+
+        .event-card {
+            flex: 0 0 calc(35% - 10px);
+            border: 1px solid #ccc;
+            border-radius: 30px;
+            padding: 20px;
+            margin-left: 8%;
+            margin-bottom: 30px;
+            background-color: #f8f9fa;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .event-card h2 {
+            margin-top: 0;
+        }
+
+        .event-card img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .event-card .actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+    </style>
+
+    <div class="event-container">
+        {% for event in eventos %}
+            <div class="event-card">
+                <h2>{{ event.nombre }}</h2>
+                <p>Fecha: {{ event.fecha|date('d-m-Y') }}</p>
+                <img src="{{ asset(event.imagen) }}" alt="{{ event.nombre }}">
+                <div class="actions">
+                    <a href="/events/{{ event.id }}">Ver más</a>
+                    <a href="/events/edit/{{ event.id }}">Editar</a>
+                    <a href="/events/delete/{{ event.id }}">Borrar</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

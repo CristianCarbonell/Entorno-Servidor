@@ -1,0 +1,55 @@
+version: "3.7"
+
+services:
+  webserver:
+    image: caddy:2.7.4-alpine
+    container_name: webserver
+    restart: unless-stopped
+    ports:
+    - "80:80"
+    - "443:443"
+    volumes:
+    - ./:/srv
+    - caddy_data:/data
+    - caddy_config:/config
+    - ./Caddyfile:/etc/caddy/Caddyfile
+    depends_on:
+      - php
+      - database
+    networks:
+      - symfony_network
+  php:
+    container_name: php
+    build: .
+    image: php-symfony:latest
+    restart: unless-stopped
+    working_dir: /srv
+    expose:
+      - 9000
+    volumes:
+      - ./:/srv
+    networks:
+      - symfony_network
+  database:
+    image: mysql:8.1.0
+    container_name: database
+    restart: unless-stopped
+    ports:
+      - "${DB_PORT}:3306"
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - db_data:/var/lib/mysql/
+    networks:
+      - symfony_network
+
+volumes:
+  caddy_data:
+  caddy_config:
+  db_data:
+
+networks:
+  symfony_network:

@@ -1,0 +1,36 @@
+{% block header %}
+    <style>
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0 0 50px 0;
+            background-color: #f8f9fa;
+        }
+
+        nav ul li {
+            display: inline-block;
+            margin-right: 20px;
+            padding: 10px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #343a40;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            color: #007bff;
+        }
+    </style>
+
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="#">Login</a></li>
+            <li><a href="/events">Eventos</a></li>
+            <li><a href="#">Especies</a></li>
+            <li><a href="#">Contactos</a></li>
+        </ul>
+    </nav>
+{% endblock %}

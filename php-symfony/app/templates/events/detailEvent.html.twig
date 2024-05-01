@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ event.nombre }}{% endblock %}
+
+{% block content %}
+    <style>
+        .event-detail-container {
+            display: flex;
+            justify-content: center;
+            margin: 0 auto;
+            max-width: 60%;
+        }
+
+        .event-image {
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        .event-image img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .event-info {
+            flex: 2;
+        }
+
+    </style>
+
+    <div class="event-detail-container">
+        <div class="event-image">
+            <img src="{{ asset(event.imagen) }}" alt="{{ event.nombre }}">
+        </div>
+        <div class="event-info">
+            <h2>{{ event.nombre }}</h2>
+            <p><strong>Ubicación</strong>: <i>{{ event.ubicacion }}</i></p>
+            <p><strong>Fecha</strong>: <i>{{ event.fecha|date('d-m-Y') }}</i></p>
+            <p><strong>Anfitrión</strong>: <i>{{ event.anfitrion }}</i></p>
+            <p><strong>Descripción</strong>: <i>{{ event.descripcion }}</i></p>
+            <p><strong>Tipo de evento:</strong>: <i>{{ event.tipo}}</i></p>
+            <p><strong>Tipo de terreno</strong>: <i>{{ event.terreno }}</i></p>
+            <p><strong>Cantidad de especies</strong>: <i>{{ event.especies }}</i></p>
+            <p><strong>Participantes:</strong></p>
+            <ul>
+                {% for usuario in event.usuarios %}
+                    <li>{{ usuario.nombre }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
