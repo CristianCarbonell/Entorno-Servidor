@@ -15,9 +15,13 @@ class Usuario
     #[ORM\Column]
     private ?int $id = null;
 
-
+    // Esta propiedad representa una relación de uno a muchos con la entidad Evento.
+    // Un usuario puede ser anfitrión de muchos eventos, pero un evento solo puede tener un anfitrión.
     #[ORM\OneToMany(targetEntity: Evento::class,mappedBy: 'anfitrion')]
     private Collection $eventosAnfitrion;
+
+    // Esta propiedad representa una relación de muchos a muchos con la entidad Evento.
+    // Un usuario puede participar en muchos eventos y un evento puede tener muchos usuarios participantes.
     #[ORM\ManyToMany(targetEntity: Evento::class,inversedBy: 'usuarios')]
     #[ORM\JoinTable(name: 'participantes_eventos')]
     private Collection $eventosParticipantes;

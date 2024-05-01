@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Evento;
+use App\Entity\Usuario;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,6 +36,9 @@ class EventsController extends AbstractController
     #[Route('/events/create', name: 'event_create')]
     public function create(): Response
     {
+        // Obtiene el usuario con ID 1 de la base de datos
+        $anfitrion = $this->em->getRepository(Usuario::class)->find(1);
+
         // Generamos tres eventos
         for ($i = 1; $i <= 3; $i++) {
             $evento = new Evento();
@@ -44,6 +48,7 @@ class EventsController extends AbstractController
 
             // Establecer los valores de las propiedades del evento
             $evento->setNombre('Nombre del evento ' . $i);
+            $evento->setAnfitrion($anfitrion);
             $evento->setDescripcion('Descripción del evento ' . $i);
             $evento->setUbicacion('Ubicación del evento ' . $i);
             $evento->setTerreno('Tipo de terreno ' . $i);
